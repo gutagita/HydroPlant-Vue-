@@ -42,13 +42,6 @@ onMounted(loadProducts)
     <p v-if="loading" class="text-gray-600">Loading produk...</p>
     <p v-else-if="errorMessage" class="text-red-600">{{ errorMessage }}</p>
 
-    <ul v-else class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <li v-for="product in products" :key="product.id" class="rounded-lg border p-4 shadow-sm bg-white">
-        <h2 class="text-lg font-semibold text-gray-900">{{ product.name }}</h2>
-        <p class="text-sm text-gray-600 mt-1">{{ product.description }}</p>
-        <p class="text-primary font-bold mt-3">Rp {{ product.price }}</p>
-        <p class="text-xs text-gray-500 mt-1">Stock: {{ product.stock }}</p>
-      </li>
-    </ul>
+  
   </main>
 </template>
