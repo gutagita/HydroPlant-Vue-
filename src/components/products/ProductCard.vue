@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { api } from '@/services/api'
+import api from '@/services/api'
 import type { Product } from '@/types/product'
+import { RouterLink } from 'vue-router'
 
 const props = defineProps<{
   product: Product
@@ -71,12 +72,15 @@ const getCategoryLabel = (product: Product) => {
 </script>
 
 <template>
-  <div class="overflow-hidden rounded-2xl border border-white-300 bg-zinc-100 p-2.5 shadow-sm transition-colors duration-200 hover:border-emerald-600">
+  <RouterLink
+    :to="`/products/${props.product.id}`"
+    class="block overflow-hidden rounded-2xl border border-zinc-200 bg-white p-2 shadow-sm transition-colors duration-200 hover:border-emerald-950"
+  >
     <div class="overflow-hidden rounded-xl bg-white">
       <img
         :src="getImageUrl((props.product.image as unknown as string) || '')"
         :alt="props.product.name"
-        class="h-44 w-full object-cover"
+        class="h-44 w-full object-cover object-center"
         loading="lazy"
         @error="onImageError"
       />
@@ -94,13 +98,14 @@ const getCategoryLabel = (product: Product) => {
           {{ props.product.stock > 0 ? `${props.product.stock} buah` : 'Habis' }}
         </p>
 
-        <div class="mt-2 grid gap-3">
+        <div class="mt-4 grid gap-3">
           <div class="flex items-center justify-between gap-2">
             <p class="text-lg font-semibold text-zinc-900 sm:text-lg">
               {{ formatCurrency(props.product.price) }}
             </p>
 
             <button
+              @click.stop
               type="button"
               class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-lime-100 p-0 leading-none text-lime-900 transition hover:bg-lime-200"
               aria-label="Tambah ke keranjang"
@@ -127,5 +132,5 @@ const getCategoryLabel = (product: Product) => {
         </div>
       </div>
     </div>
-  </div>
+  </RouterLink>
 </template>
